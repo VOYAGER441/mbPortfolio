@@ -1,18 +1,11 @@
-// import Image from "next/image";
-// import styles from "./page.module.css";
 
-// export default function Home() {
-//   return (
-//     <div className={styles.page}>
-
-//     </div>
-//   );
-// }
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import styles from "./page.module.css"; // Import the CSS module
 import "./globals.css"; // Adjust the path as per your project structure
+import "bootstrap/dist/css/bootstrap.min.css";
+
 
 const HomePage: React.FC = () => {
   return (

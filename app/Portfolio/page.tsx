@@ -1,8 +1,12 @@
+/* eslint-disable @next/next/no-img-element */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
+import "bootstrap/dist/css/bootstrap.min.css";
 import Image from "next/image";
 import Link from "next/link";
 import { Key, useState } from "react";
+import styles from "./page.module.css";
 import {
   FaPaperPlane,
   FaPhone,
@@ -11,9 +15,17 @@ import {
   FaInstagram,
   FaEnvelope,
 } from "react-icons/fa";
+import Navbar from "../component/Navbar";
 
 export default function Portfolio() {
   // const [activeTab, setActiveTab] = useState("skills");
+
+  type tabs = [
+    {
+      id: string;
+      label: string;
+    }
+  ];
 
   const tabs = [
     { id: "skills", label: "Skills" },
@@ -27,7 +39,9 @@ export default function Portfolio() {
   };
   // Use a union type for activeTab
   // const activeTab: TabKeys
-const [activeTab, setActiveTab]= useState<string>('skills');
+
+  type TabKeys = keyof TabContent;
+  const [activeTab, setActiveTab] = useState<TabKeys>("skills");
 
   const tabContent: TabContent = {
     skills: [
@@ -48,40 +62,13 @@ const [activeTab, setActiveTab]= useState<string>('skills');
       { period: "2022-2024", institution: "Konnagar Hindu Girl's High School" },
     ],
   };
-  
 
   return (
     <div
-      style={{ minHeight: "100vh", backgroundColor: "#1a202c", color: "white" }}
+      style={{ minHeight: "100vh", backgroundColor: "#000", color: "white" }}
+      className="container-fluid"
     >
-      <nav style={{ backgroundColor: "transparent", padding: "1rem" }}>
-        <ul
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            gap: "1.5rem",
-            listStyle: "none",
-          }}
-        >
-          {["Blogs", "Coding", "Skills", "Gallery", "Extras", "Contact"].map(
-            (item) => (
-              <li key={item}>
-                <Link
-                  href={`#${item.toLowerCase()}`}
-                  style={{
-                    fontSize: "1.25rem",
-                    color: "white",
-                    textDecoration: "none",
-                    transition: "color 0.3s",
-                  }}
-                >
-                  {item}
-                </Link>
-              </li>
-            )
-          )}
-        </ul>
-      </nav>
+      <Navbar />
 
       <header
         style={{
@@ -89,20 +76,22 @@ const [activeTab, setActiveTab]= useState<string>('skills');
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          background: "linear-gradient(to right, #8b5cf6, #ec4899)",
+          // background: "linear-gradient(to right, #8b5cf6, #ec4899)",
         }}
+        className={styles.HeaderBody}
       >
-        <div style={{ textAlign: "center", animation: "fadeIn 0.8s ease-out" }}>
-          <h1
-            style={{
-              fontSize: "3rem",
-              fontWeight: "bold",
-              marginBottom: "1rem",
-            }}
-          >
-            Hello, I am Mainak
-          </h1>
-          <p style={{ fontSize: "1.875rem" }}>I am a full stack developer</p>
+        {/* <img
+              src="/assets/1.jpg"
+              alt=" Me"
+              // width={400}
+              // height={400}
+              style={{ borderRadius: "0.5rem",width:"100%",zIndex:0, position:"absolute" }}
+            /> */}
+        <div className={styles.containers}>
+          <h1 className={styles.typewriterHeading}>Hello, I am Mainak</h1>
+          <p className={styles.typewriterSubheading}>
+            I am a full stack developer
+          </p>
         </div>
       </header>
 
@@ -127,8 +116,8 @@ const [activeTab, setActiveTab]= useState<string>('skills');
               gap: "2rem",
             }}
           >
-            <Image
-              src="/placeholder.svg?height=400&width=400"
+            <img
+              src="/assets/1.jpg"
               alt="About Me"
               width={400}
               height={400}
@@ -150,7 +139,7 @@ const [activeTab, setActiveTab]= useState<string>('skills');
               <div
                 style={{ display: "flex", gap: "1rem", marginBottom: "1.5rem" }}
               >
-                {tabs.map((tab) => (
+                {tabs.map((tab: any) => (
                   <button
                     key={tab.id}
                     onClick={() => setActiveTab(tab.id)}
@@ -168,13 +157,22 @@ const [activeTab, setActiveTab]= useState<string>('skills');
                   </button>
                 ))}
               </div>
-              <ul style={{ listStyleType: 'disc', paddingLeft: '1.5rem' }}>
-    {tabContent[activeTab].map((item: string | { period: string; role?: string; institution?: string }, index: Key | null | undefined) => (
-      <li key={index} style={{ marginBottom: '0.5rem' }}>
-        {typeof item === 'string' ? item : `${item.period} - ${item.role || item.institution}`}
-      </li>
-    ))}
-  </ul>
+              <ul style={{ listStyleType: "disc", paddingLeft: "1.5rem" }}>
+                {tabContent[activeTab].map(
+                  (
+                    item:
+                      | string
+                      | { period: string; role?: string; institution?: string },
+                    index: Key | null | undefined
+                  ) => (
+                    <li key={index} style={{ marginBottom: "0.5rem" }}>
+                      {typeof item === "string"
+                        ? item
+                        : `${item.period} - ${item.role || item.institution}`}
+                    </li>
+                  )
+                )}
+              </ul>
             </div>
           </div>
         </section>

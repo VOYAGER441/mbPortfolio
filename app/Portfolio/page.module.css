@@ -1,0 +1,53 @@
+.HeaderBody {
+    background-image: url("/assets/1.jpg");
+    background-size: cover;
+    /* filter: blur(5px); */
+}
+
+@keyframes typewriter {
+    from {
+        width: 0;
+    }
+
+    to {
+        width: 100%;
+    }
+}
+
+@keyframes blinkCursor {
+    50% {
+        border-right-color: transparent;
+    }
+}
+
+.intro-containers {
+    text-align: center;
+}
+
+.typewriterHeading,
+.typewriterSubheading {
+    display: inline-block;
+    overflow: hidden;
+    /* Ensures content is hidden during the animation */
+    border-right: 2px solid black;
+    /* Creates a cursor effect */
+    white-space: nowrap;
+    /* Keeps text on a single line */
+    letter-spacing: 2px;
+    /* Adds a bit of spacing between letters */
+    animation: typewriter 3s steps(40, end), blinkCursor 0.75s step-end infinite;
+}
+
+.typewriterHeading {
+    font-size: 4rem;
+    font-weight: bold;
+    width: 100%;
+    /* Control the width according to the text length */
+}
+
+.typewriterSubheading {
+    font-size: 2rem;
+    width: 100%;
+    /* Control the width according to the text length */
+    margin-top: 1rem;
+}
