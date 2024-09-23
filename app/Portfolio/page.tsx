@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-key */
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
@@ -7,6 +8,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { Key, useState } from "react";
 import styles from "./page.module.css";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { faGithub } from '@fortawesome/free-solid-svg-icons'
+{/* <FontAwesomeIcon icon={faGithub} /> */}
 import {
   FaPaperPlane,
   FaPhone,
@@ -45,21 +49,30 @@ export default function Portfolio() {
 
   const tabContent: TabContent = {
     skills: [
-      "Financial statement analysis",
-      "Budgeting and financial planning",
-      "QuickBooks, SAP, Tally",
-      "Economic data analysis",
-      "Digital marketing and social media marketing",
-      "Project management and leadership",
-      "Data analysis using Excel, SPSS",
-      "Verbal and written communication",
-      "Critical thinking and problem-solving",
-      "Microsoft Office (Excel, Word, PowerPoint)",
+      "C",
+      "C++",
+      "Java",
+      "Assembly",
+      "Python",
+      "PHP",
+      "SQL",
+      "HTML",
+      "CSS",
+      "SCSS",
+      "Tailwind",
+      "Bootstrap",
+      "JavaScript",
+      "React.js",
+      "Next.js",
+      "RxJS",
+      "Node.js",
+      "Express.js",
+      "MongoDB",
     ],
-    experience: [{ period: "2020 - Current", role: "Internship as a Teacher" }],
+    experience: [{ period: "2024 - Current", role: "Inter as a Full Stack Developer" }],
     education: [
-      { period: "2024 - Current", institution: "Raja Peary Mohan College" },
-      { period: "2022-2024", institution: "Konnagar Hindu Girl's High School" },
+      { period: "2022 - Current", institution: "VIVEKANANDA MAHAVIDYALAYA" },
+      { period: "2014-2022", institution: "Kinkarbati Agricultural Institution" },
     ],
   };
 
@@ -117,7 +130,11 @@ export default function Portfolio() {
               <img
                 src="/assets/pro.jpg"
                 alt="About Me"
-                style={{ borderRadius: "5rem", width: "400px",padding:'10px' }}
+                style={{
+                  borderRadius: "5rem",
+                  width: "400px",
+                  padding: "10px",
+                }}
               />
               <div>
                 <p style={{ fontSize: "1.125rem", marginBottom: "1.5rem" }}>
@@ -209,30 +226,31 @@ export default function Portfolio() {
               }}
             >
               {[
-                {
-                  title: "Financial Analysis",
-                  icon: "fa-magnifying-glass-chart",
+                 {
+                  title: "Full Stack Development",
+                  icon: "fa-code",
                   description:
-                    "Evaluating financial data to help businesses make informed decisions.",
+                    "Building responsive web applications using modern technologies like Next.js and React.",
                 },
                 {
-                  title: "Accounting Services",
-                  icon: "fa-calculator",
+                  title: "Mobile Development",
+                  icon: "fa-mobile-alt",
                   description:
-                    "Managing financial records, bookkeeping, and preparing financial statements.",
+                    "Creating intuitive mobile applications for both iOS and Android platforms.",
                 },
                 {
-                  title: "Tax Consultation",
-                  icon: "fa-money-check-dollar",
+                  title: "Database Management",
+                  icon: "fa-database",
                   description:
-                    "Assisting with tax preparation, planning, and compliance.",
+                  "Managing and optimizing databases with MongoDB, MySQL, and PostgreSQL.",
                 },
                 {
-                  title: "Content Writing",
-                  icon: "fa-pen",
+                  title: "Data Analysis",
+                  icon: "fa-chart-pie",
                   description:
-                    "Creating engaging and informative content for various platforms.",
+                    "Utilizing Python and Excel for insightful data analysis and visualization.",
                 },
+               
               ].map((service, index) => (
                 <div
                   key={index}
@@ -417,7 +435,7 @@ export default function Portfolio() {
                   }}
                 >
                   <FaPaperPlane style={{ marginRight: "0.5rem" }} />{" "}
-                  anuriyaroy11@gmail.com
+                  mainak407@gmail.com
                 </p>
                 <p
                   style={{
@@ -426,7 +444,7 @@ export default function Portfolio() {
                     marginBottom: "1rem",
                   }}
                 >
-                  <FaPhone style={{ marginRight: "0.5rem" }} /> 9831440777
+                  <FaPhone style={{ marginRight: "0.5rem" }} /> 9831441777
                 </p>
                 <div
                   style={{
@@ -437,19 +455,23 @@ export default function Portfolio() {
                 >
                   {[
                     {
-                      icon: <FaLinkedin />,
+                      icons: <FaLinkedin />,
                       href: "https://www.linkedin.com/in/anuriya-roy-935b50317",
                     },
                     {
-                      icon: <FaFacebook />,
+                      icons: <FaFacebook />,
                       href: "https://www.facebook.com/profile.php?id=61552314094836",
                     },
                     {
-                      icon: <FaInstagram />,
+                      icons: <FaInstagram />,
                       href: "https://www.instagram.com/anuriya.roy",
                     },
+                  //  {
+                  //   icons: <FontAwesomeIcon icon={faGithub} /> ,
+                  //   href: "https://github.com/VOYAGER441",
+                  //  },
                     {
-                      icon: <FaEnvelope />,
+                      icons: <FaEnvelope />,
                       href: "mailto:anuriyaroy11@gmail.com",
                     },
                   ].map((social, index) => (
@@ -462,7 +484,7 @@ export default function Portfolio() {
                         transition: "color 0.3s",
                       }}
                     >
-                      {social.icon}
+                      {social.icons}
                     </Link>
                   ))}
                 </div>
