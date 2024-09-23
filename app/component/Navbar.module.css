@@ -1,13 +1,13 @@
 .NavBar{
   background-color: transparent;
   border-style: none;
-  color: white;
+  color: rgb(0, 0, 0);
   width: 100%;
 }
 .a{
   position: relative;
   display: inline-block;
-  color: rgb(5, 0, 0);
+  color: rgb(255, 255, 255);
   font-size: 1.2rem;
   text-decoration: none;
   padding: 0.5rem 1rem;

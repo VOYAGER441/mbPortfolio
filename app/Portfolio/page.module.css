@@ -1,7 +1,8 @@
 .HeaderBody {
     background-image: url("/assets/1.jpg");
     background-size: cover;
-    /* filter: blur(5px); */
+    width: 100%;
+    border-radius: 30px;
 }
 
 @keyframes typewriter {
@@ -20,9 +21,12 @@
     }
 }
 
-.intro-containers {
-    text-align: center;
-}
+/* .containers {
+    text-align:center ;
+    width: 100vh;
+
+
+} */
 
 .typewriterHeading,
 .typewriterSubheading {
@@ -36,12 +40,15 @@
     letter-spacing: 2px;
     /* Adds a bit of spacing between letters */
     animation: typewriter 3s steps(40, end), blinkCursor 0.75s step-end infinite;
+    word-wrap: break-word;
 }
 
 .typewriterHeading {
     font-size: 4rem;
     font-weight: bold;
-    width: 100%;
+
+
+
     /* Control the width according to the text length */
 }
 
@@ -50,4 +57,26 @@
     width: 100%;
     /* Control the width according to the text length */
     margin-top: 1rem;
+}
+
+@media (max-width: 768px) {
+    .HeaderBody {
+        background-image: url("/assets/mobile.jpg");
+        background-position: center;
+        background-size: cover;
+        border-radius: 30px;
+        width: 100%;
+    }
+
+    .typewriterHeading {
+        font-size: 3rem;
+        white-space: normal;
+        /* Allow text to wrap */
+    }
+
+    .typewriterSubheading {
+        font-size: 1.5rem;
+        white-space: normal;
+        /* Allow text to wrap */
+    }
 }
