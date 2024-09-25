@@ -516,6 +516,7 @@ export default function Portfolio() {
                   flexDirection: "column",
                   gap: "1rem",
                 }}
+                netlify
               >
                 <input
                   type="text"
