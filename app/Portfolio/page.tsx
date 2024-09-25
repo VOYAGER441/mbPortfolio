@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react/jsx-key */
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable @typescript-eslint/no-explicit-any */
@@ -18,6 +19,7 @@ import {
   FaFacebook,
   FaInstagram,
   FaEnvelope,
+  FaGithub,
 } from "react-icons/fa";
 import Navbar from "../component/Navbar";
 
@@ -86,7 +88,7 @@ export default function Portfolio() {
         }}
         className="container-fluid"
       >
-        <Navbar />
+        <Navbar/>
 
         <header
           style={{
@@ -134,6 +136,7 @@ export default function Portfolio() {
                   borderRadius: "5rem",
                   width: "400px",
                   padding: "10px",
+                  backgroundAttachment:"fixed"
                 }}
               />
               <div>
@@ -316,18 +319,21 @@ export default function Portfolio() {
             >
               {[
                 {
-                  title: "Accounting Services",
-                  description: "Managing financial records and statements...",
+                  title: "Amazon Clone",
+                  description: "Building responsive web applications using modern technologies...",
+                  img:"/assets/amazon.png"
                 },
                 {
-                  title: "Financial Analysis",
+                  title: "Weather Web Application",
                   description:
-                    "Evaluating financial data for informed decisions...",
+                    "Building responsive web applications using weather api...",
+                    img:"/assets/we.png"
                 },
                 {
-                  title: "Content Writing",
+                  title: "Color Picker",
                   description:
-                    "Creating engaging content for various platforms...",
+                    "Building responsive web applications using React js",
+                    img:"/assets/colo.png"
                 },
               ].map((work, index) => (
                 <div
@@ -347,7 +353,7 @@ export default function Portfolio() {
                   }
                 >
                   <Image
-                    src={`/placeholder.svg?height=300&width=400&text=${work.title}`}
+                    src={`${work.img}`}
                     alt={work.title}
                     width={400}
                     height={300}
@@ -397,7 +403,7 @@ export default function Portfolio() {
             </div>
             <div style={{ textAlign: "center", marginTop: "2rem" }}>
               <Link
-                href="#"
+                href="https://github.com/VOYAGER441"
                 style={{
                   display: "inline-block",
                   backgroundColor: "#c81414",
@@ -456,30 +462,30 @@ export default function Portfolio() {
                   {[
                     {
                       icons: <FaLinkedin />,
-                      href: "https://www.linkedin.com/in/anuriya-roy-935b50317",
+                      href: "https://www.linkedin.com/in/mainak-banduri-239808237/",
                     },
                     {
                       icons: <FaFacebook />,
-                      href: "https://www.facebook.com/profile.php?id=61552314094836",
+                      href: "https://www.facebook.com/mainak.banduri.37/",
                     },
                     {
                       icons: <FaInstagram />,
-                      href: "https://www.instagram.com/anuriya.roy",
+                      href: "https://www.instagram.com/mainak_banduri/",
                     },
-                  //  {
-                  //   icons: <FontAwesomeIcon icon={faGithub} /> ,
-                  //   href: "https://github.com/VOYAGER441",
-                  //  },
+                   {
+                    icons: <FaGithub  /> ,
+                    href: "https://github.com/VOYAGER441",
+                   },
                     {
                       icons: <FaEnvelope />,
-                      href: "mailto:anuriyaroy11@gmail.com",
+                      href: "mailto:mainak407@gmail.com",
                     },
                   ].map((social, index) => (
                     <Link
                       key={index}
                       href={social.href}
                       style={{
-                        fontSize: "1.5rem",
+                        fontSize: "3rem",
                         color: "white",
                         transition: "color 0.3s",
                       }}
@@ -489,7 +495,7 @@ export default function Portfolio() {
                   ))}
                 </div>
                 <Link
-                  href="#"
+                  href="/assets/CV.pdf"
                   style={{
                     display: "inline-block",
                     backgroundColor: "#c81414",

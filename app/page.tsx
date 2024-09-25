@@ -32,7 +32,7 @@ const HomePage: React.FC = () => {
           </Link>
         </li>
         <li className={styles.li}>
-          <Link href="#" data-text="Blogs" className={styles.a}>
+          <Link href="/Blog" data-text="Blogs" className={styles.a}>
             Blogs
           </Link>
         </li>

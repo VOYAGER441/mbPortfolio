@@ -18,10 +18,10 @@ const Navbar = () => {
         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
 
           <li className={`nav-item `}>
-            <a className={`nav-link ${styles.a}`} aria-current="page" href="/">Home</a>
+            <a className={`nav-link ${styles.a}`} aria-current="page" href="/Portfolio">Home</a>
           </li>
           <li className={`nav-item `}>
-            <a className={`nav-link ${styles.a}`} href="#">Blog</a>
+            <a className={`nav-link ${styles.a}`} href="/Blog">Blog</a>
           </li>
           <li className={`nav-item `}>
             <a className={`nav-link ${styles.a}`} href="#">Coding</a>
