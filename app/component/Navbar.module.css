@@ -1,5 +1,5 @@
 .NavBar{
-  background-color: transparent;
+  background-color: transparent! important;
   border-style: none;
   color: rgb(0, 0, 0);
   width: 100%;

@@ -8,7 +8,7 @@ import styles from './Navbar.module.css';
 const Navbar = () => {
   return (
     <>
-    <nav className={`navbar navbar-expand-sm  bg-dark ${styles.NavBar}`}>
+    <nav className={`navbar navbar-expand-sm   ${styles.NavBar}`}>
     <div className="container-fluid">
       <a className="navbar-brand" href="/"><img src="./favicon.ico" alt="icon" width={100} height={100}  style={{ filter: "invert(100%) brightness(2)" }} /></a>
       <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" style={{backgroundColor:"white"}}>
@@ -21,7 +21,7 @@ const Navbar = () => {
             <a className={`nav-link ${styles.a}`} aria-current="page" href="/Portfolio">Home</a>
           </li>
           <li className={`nav-item `}>
-            <a className={`nav-link ${styles.a}`} href="/Blog">Blog</a>
+            <a className={`nav-link ${styles.a}`} href="https://bitbybits.netlify.app/">Blog</a>
           </li>
           <li className={`nav-item `}>
             <a className={`nav-link ${styles.a}`} href="#">Coding</a>
@@ -41,10 +41,10 @@ const Navbar = () => {
           
 
         </ul>
-        <form className="d-flex">
+        {/* <form className="d-flex">
           <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
           <button className="btn btn-outline-success" type="submit">Search</button>
-        </form>
+        </form> */}
       </div>
     </div>
   </nav>

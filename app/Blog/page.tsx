@@ -1,20 +1,21 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React from "react";
 import Navbar from "../component/Navbar";
+import styles from "./page.module.css";
 
 function page() {
   return (
     <>
-            <Navbar />
-      <div
+      {/* <div
         style={{
           minHeight: "100vh",
-          backgroundColor: "#000",
-          color: "black",
-          textDecoration:"none"
+          backgroundColor: "#212529",
+          color: "white",
         }}
         className="container-fluid"
       >
-      </div>
+        <Navbar />
+      </div> */}
     </>
   );
 }

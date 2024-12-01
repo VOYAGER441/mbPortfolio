@@ -123,6 +123,29 @@ a.secondary {
   }
 }
 
+.ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+}
+
+.li {
+  /* margin: 10px 0; */
+}
+
+.a {
+  text-decoration: none;
+  font-weight: bold;
+  color: #000;
+  transition: color 0.3s ease;
+}
+
+.a:hover {
+  color: #007bff;
+}
+
+
 @media (max-width: 600px) {
   .page {
     padding: 32px;
@@ -171,6 +194,8 @@ a.secondary {
   margin-left: 0px;
   margin: 0px;
   padding: 0px;
+  z-index: -999;
+  position: relative;
 
 }
 
