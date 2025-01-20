@@ -1,10 +1,11 @@
-.NavBar{
-  background-color: transparent! important;
+.NavBar {
+  background-color: transparent ! important;
   border-style: none;
   color: rgb(0, 0, 0);
   width: 100%;
 }
-.a{
+
+.a {
   position: relative;
   display: inline-block;
   color: rgb(255, 255, 255);
@@ -13,6 +14,7 @@
   padding: 0.5rem 1rem;
   transition: color 0.3s ease;
 }
+
 .a::after {
   content: "";
   position: absolute;
@@ -20,15 +22,19 @@
   height: 2px;
   bottom: 0;
   left: 50%;
-  background-color: rgb(249, 5, 5); /* Color of the underline */
+  background-color: rgb(249, 5, 5);
+  /* Color of the underline */
   transition: width 0.3s ease, left 0.3s ease;
 }
 
 .a:hover::after {
-  width: 100%; /* Expand underline */
-  left: 0; /* Move underline to start */
+  width: 100%;
+  /* Expand underline */
+  left: 0;
+  /* Move underline to start */
 }
 
 .a:hover {
-  color: #00BFFF; /* Change color on hover */
+  color: #00BFFF;
+  /* Change color on hover */
 }

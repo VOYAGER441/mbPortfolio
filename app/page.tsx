@@ -17,7 +17,7 @@ const HomePage: React.FC = () => {
                 style={{
                   marginBottom: "-50px",
                   marginTop: "-50px",
-                  zIndex:"-2"
+                  zIndex: "-2",
                 }}
               >
                 <Image
@@ -35,7 +35,11 @@ const HomePage: React.FC = () => {
             </Link>
           </li>
           <li className={styles.li}>
-            <Link href="https://bitbybits.netlify.app/" data-text="Blogs" className={styles.a}>
+            <Link
+              href="https://bitbybits.netlify.app/"
+              data-text="Blogs"
+              className={styles.a}
+            >
               Blogs
             </Link>
           </li>
