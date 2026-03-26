@@ -21,7 +21,7 @@ import {
   FaEnvelope,
   FaGithub,
 } from "react-icons/fa";
-import Navbar from "../component/Navbar";
+// import Navbar from "../component/Navbar";
 
 export default function Portfolio() {
   // const [activeTab, setActiveTab] = useState("skills");
@@ -80,7 +80,7 @@ export default function Portfolio() {
 
   return (
     <>
-      <div
+      {/* <div
         style={{
           minHeight: "100vh",
           backgroundColor: " #212529",
@@ -588,7 +588,7 @@ export default function Portfolio() {
         >
           <p>Made with ❤️ by Mainak Banduri</p>
         </footer>
-      </div>
+      </div> */}
     </>
   );
 }

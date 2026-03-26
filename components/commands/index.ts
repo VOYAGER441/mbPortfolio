@@ -39,8 +39,8 @@ export const parseCommand = (input: string): React.ReactNode => {
         React.createElement('br', { key: 'br1' }),
         ...profile.bio.map((line, i) => React.createElement('div', { key: `bio${i}`, className: 'text-[#e6edf3]' }, line)),
         React.createElement('br', { key: 'br2' }),
-        React.createElement('div', { key: 'w6', className: 'text-[#3fb950]' }, '→ open soulsync-ai   → most complex AI project (live)'),
-        React.createElement('div', { key: 'w7', className: 'text-[#3fb950]' }, '→ open sheild        → most impactful project'),
+        React.createElement('div', { key: 'w6', className: 'text-[#3fb950]' }, '→ open sheild        → most impactful project (Live)'),
+        React.createElement('div', { key: 'w7', className: 'text-[#3fb950]' }, '→ open soulsync-ai   → most complex AI project '),
         React.createElement('div', { key: 'w8', className: 'text-[#3fb950]' }, '→ open smartdash-ai  → AI + data pipeline project'),
         React.createElement('div', { key: 'w9', className: 'text-[#3fb950]' }, '→ open bits-by-bits  → live full-stack platform')
       ]);

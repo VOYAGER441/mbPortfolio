@@ -8,12 +8,37 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Your Name | Backend Engineer",
-  description: "Backend-first full stack engineer. Explore my work via terminal.",
+  title: "Mainak Banduri (VOYAGER441) | Full Stack & Embedded Engineer",
+  description: "I ship AI chatbots, drone flight systems, BI dashboards & embedded firmware. Full stack developer and embedded firmware engineer.",
+  keywords: [
+    "Mainak Banduri",
+    "VOYAGER441",
+    "Full Stack Developer",
+    "Embedded Systems",
+    "Software Engineer",
+    "Next.js",
+    "Node.js",
+    "C++",
+    "Drone Flight Systems"
+  ],
+  authors: [{ name: "Mainak Banduri" }],
+  creator: "Mainak Banduri",
   openGraph: {
-    title: "Your Name | Developer Portfolio",
-    description: "An interactive terminal portfolio.",
     type: "website",
+    locale: "en_US",
+    url: "https://github.com/VOYAGER441",
+    title: "Mainak Banduri | Full Stack & Embedded Engineer",
+    description: "I ship AI chatbots, drone flight systems, BI dashboards & embedded firmware. Explore my interactive terminal portfolio.",
+    siteName: "Mainak Banduri Portfolio",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Mainak Banduri | Full Stack & Embedded Engineer",
+    description: "I ship AI chatbots, drone flight systems, BI dashboards & embedded firmware. Explore my interactive terminal portfolio.",
+    creator: "@voyager_mainak",
+  },
+  icons: {
+    icon: "/favicon.ico",
   },
 };
 
