@@ -1,0 +1,53 @@
+export const experience = [
+  {
+    id: "weinkl",
+    company: "Weinkl Technologies LLP",
+    role: "Full Stack Developer (Intern)",
+    type: "internship",
+    location: "Hooghly, West Bengal, India",
+    period: "2024 – 2025",
+    startYear: 2024,
+    description:
+      "Building client-facing platforms and web applications at a software & IT solutions company.",
+    highlights: [
+      "Developing full stack features using React, Next.js, and Node.js",
+      "Working with MERN stack — MongoDB, Express, React, Node",
+      "Designing and consuming REST APIs for client products",
+      "Collaborating on software solutions for external clients",
+    ],
+    tech: ["React", "Next.js", "Node.js", "Express.js", "MongoDB", "TypeScript"],
+  },
+   {
+    id: "skyfusion",
+    company: "Sky Fusion Technologies Pvt Ltd",
+    role: "Full Stack Developer (part-time)",
+    type: "part-time",
+    location: "Hooghly, West Bengal, India",
+    period: "2025 – Present",
+    startYear: 2025,
+    description:
+      "Developing drone flight control systems, telemetry solutions, and embedded firmware alongside web-based platforms at a software & IT solutions company.",
+    highlights: [
+      "Designing and implementing drone flight control systems using microcontrollers",
+      "Developing real-time telemetry systems for data acquisition and communication",
+      "Building and optimizing embedded firmware for hardware-level performance and reliability",
+      "Integrating hardware systems with web applications for monitoring and control",
+      "Working with React, Next.js, and Node.js for client-facing platforms",
+      "Collaborating on end-to-end solutions combining embedded systems and software applications",
+    ],
+   tech: [
+      "C",
+      "C++",
+      "Python",
+      "Arduino",
+      "Embedded C",
+      "Microcontrollers",
+      "Firmware Development",
+      "Drone Systems",
+      "Telemetry Systems",
+      "Serial Communication",
+      "I2C",
+      "SPI",
+    ],
+  },
+];
