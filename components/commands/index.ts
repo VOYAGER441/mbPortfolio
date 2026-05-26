@@ -1,10 +1,20 @@
 import React from 'react';
-import ProjectCard, { ProjectCardProps } from './ProjectCard';
-import { projects } from '../../data/projects';
+import GithubRepoList from '../GithubRepoList';
+import GithubRepoDetail from '../GithubRepoDetail';
 import { profile } from '../../data/profile';
 import { skills } from '../../data/skills';
 import { contact } from '../../data/contact';
 import { experience } from '../../data/experience';
+
+const sectionRoutes: Record<string, string> = {
+  home: "/",
+  projects: "/projects",
+  skills: "/skills",
+  contact: "/contact",
+  systems: "/systems",
+  network: "/network",
+  vault: "/vault",
+};
 
 export const parseCommand = (input: string): React.ReactNode => {
   const parts = input.trim().split(' ');
@@ -17,9 +27,9 @@ export const parseCommand = (input: string): React.ReactNode => {
         React.createElement('div', { key: 'h1', className: 'text-warning-amber font-bold mb-2' }, 'Available Commands:'),
         React.createElement('div', { key: 'h2', className: 'grid grid-cols-[150px_1fr] gap-2' }, [
           React.createElement('span', { key: 'c1', className: 'text-primary-container' }, 'whoami'), React.createElement('span', { key: 'd1', className: 'text-on-surface-variant' }, 'Display developer bio'),
-          React.createElement('span', { key: 'c2', className: 'text-primary-container' }, 'ls projects/'), React.createElement('span', { key: 'd2', className: 'text-on-surface-variant' }, 'List all projects'),
+          React.createElement('span', { key: 'c2', className: 'text-primary-container' }, 'ls projects/'), React.createElement('span', { key: 'd2', className: 'text-on-surface-variant' }, 'List all GitHub repos'),
           React.createElement('span', { key: 'ce', className: 'text-primary-container' }, 'ls experience/'), React.createElement('span', { key: 'de', className: 'text-on-surface-variant' }, 'List work experience'),
-          React.createElement('span', { key: 'c3', className: 'text-primary-container' }, 'open <project>'), React.createElement('span', { key: 'd3', className: 'text-on-surface-variant' }, 'View detailed project card'),
+          React.createElement('span', { key: 'c3', className: 'text-primary-container' }, 'open <repo-name>'), React.createElement('span', { key: 'd3', className: 'text-on-surface-variant' }, 'View repo details (live GitHub data)'),
           React.createElement('span', { key: 'c3b', className: 'text-primary-container' }, 'open <section>'), React.createElement('span', { key: 'd3b', className: 'text-on-surface-variant' }, 'Open projects/skills/contact/systems/network/vault'),
           React.createElement('span', { key: 'ct', className: 'text-primary-container' }, 'tree skills/'), React.createElement('span', { key: 'dt', className: 'text-on-surface-variant' }, 'Display skills tree'),
           React.createElement('span', { key: 'c4', className: 'text-primary-container' }, 'cat skills.json'), React.createElement('span', { key: 'd4', className: 'text-on-surface-variant' }, 'Display skills JSON'),
@@ -49,18 +59,7 @@ export const parseCommand = (input: string): React.ReactNode => {
 
     case 'ls':
       if (args[0] === 'projects/' || args[0] === 'projects') {
-        return React.createElement('div', { className: 'space-y-1 font-code-sm text-code-sm' }, [
-          React.createElement('div', { key: 'l1', className: 'text-on-surface font-bold mb-2' }, `drwxr-xr-x ${projects.length} projects/`),
-          ...projects.map((p, i) => (
-            React.createElement('div', { key: `p${i}`, className: 'flex gap-4 items-center' }, [
-              React.createElement('span', { key: `p${i}n`, className: 'text-secondary w-32 shrink-0' }, p.id),
-              React.createElement('span', { key: `p${i}s`, className: 'text-terminal-green w-28 shrink-0 text-xs' }, `[${p.status}]`),
-              React.createElement('span', { key: `p${i}d`, className: 'text-on-surface-variant truncate' }, p.description.slice(0, 50) + '...')
-            ])
-          )),
-          React.createElement('br', { key: 'br3' }),
-          React.createElement('div', { key: 'l2', className: 'text-warning-amber mt-2' }, 'Run \'open <project-name>\' for full showcase')
-        ]);
+        return React.createElement(GithubRepoList);
       }
       if (args[0] === 'experience/' || args[0] === 'experience') {
         return React.createElement('div', { className: 'space-y-4 font-code-sm text-code-sm' }, [
@@ -118,12 +117,12 @@ export const parseCommand = (input: string): React.ReactNode => {
       return `tree: ${args[0] || ''}: No such directory`;
 
     case 'open':
-      if (!args[0]) return 'open: missing argument <project-name>';
-      const proj = projects.find(p => p.id === args[0]);
-      if (!proj) return `open: project '${args[0]}' not found`;
-      // We pass `proj` but force casting to the type expected by ProjectCard.
-      // There's a slight type mismatch with the exact union types, but it is structurally valid.
-      return React.createElement(ProjectCard, { project: proj as unknown as ProjectCardProps["project"] });
+      if (!args[0]) return 'open: missing argument <repo-name>';
+      const section = sectionRoutes[args[0]];
+      if (section) {
+        return React.createElement('div', { className: 'text-on-surface-variant' }, `Navigating to ${section}... (use the browser or type the URL)`);
+      }
+      return React.createElement(GithubRepoDetail, { name: args[0] });
 
     case 'cat':
       if (args[0] === 'skills.json') {
@@ -181,7 +180,7 @@ export const parseCommand = (input: string): React.ReactNode => {
       return `ping: unknown host ${args[0]}`;
 
     case 'projects':
-      return parseCommand('ls projects/');
+      return React.createElement(GithubRepoList);
 
     case 'skills':
       return parseCommand('tree skills/');
@@ -219,7 +218,7 @@ export const parseCommand = (input: string): React.ReactNode => {
       return React.createElement('div', { className: 'space-y-2' }, [
         React.createElement('div', { key: 'v1', className: 'text-terminal-green font-bold' }, 'VAULT INDEX'),
         React.createElement('div', { key: 'v2', className: 'text-on-surface-variant' }, 'resume.pdf — /resume.pdf'),
-        React.createElement('div', { key: 'v3', className: 'text-on-surface-variant' }, `projects.manifest — ${projects.length} entries`),
+        React.createElement('div', { key: 'v3', className: 'text-on-surface-variant' }, 'repository index — live from GitHub'),
         React.createElement('div', { key: 'v4', className: 'text-primary-container' }, 'Run "projects" to enumerate repositories.'),
       ]);
 

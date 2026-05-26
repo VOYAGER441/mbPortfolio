@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { contact } from "@/data/contact";
 
-type ActiveSection = "home" | "projects" | "skills" | "contact" | "systems" | "network" | "vault" | "github";
+type ActiveSection = "home" | "projects" | "skills" | "contact" | "systems" | "network" | "vault";
 
 interface VoyagerShellProps {
   active: ActiveSection;
@@ -16,13 +16,11 @@ const topNavLinks = [
   { key: "home", label: "Profile", href: "/" },
   { key: "projects", label: "Projects", href: "/projects" },
   { key: "skills", label: "Skills", href: "/skills" },
-  { key: "github", label: "GitHub", href: "/github" },
   { key: "contact", label: "Contact", href: "/contact" },
 ] as const;
 
 const sideNavLinks = [
   { key: "home", label: "Home", href: "/", icon: "home" },
-  { key: "github", label: "GitHub", href: "/github", icon: "code" },
   { key: "systems", label: "Systems", href: "/systems", icon: "settings_input_component" },
   { key: "network", label: "Network", href: "/network", icon: "lan" },
   { key: "vault", label: "Vault", href: "/vault", icon: "lock" },
@@ -39,7 +37,6 @@ const mobileNavLinks = [
   { key: "home", label: "HOME", href: "/", icon: "home" },
   { key: "projects", label: "PROJECTS", href: "/projects", icon: "terminal" },
   { key: "skills", label: "SKILLS", href: "/skills", icon: "lan" },
-  { key: "github", label: "GITHUB", href: "/github", icon: "code" },
   { key: "contact", label: "CONTACT", href: "/contact", icon: "contact_mail" },
 ] as const;
 
