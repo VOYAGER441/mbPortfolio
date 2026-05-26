@@ -1,10 +1,14 @@
 import type { Metadata } from "next";
-import { JetBrains_Mono } from "next/font/google";
+import { JetBrains_Mono, Sora } from "next/font/google";
 import "./globals.css";
 
 const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
   variable: "--font-jetbrains-mono",
+});
+const sora = Sora({
+  subsets: ["latin"],
+  variable: "--font-sora",
 });
 
 export const metadata: Metadata = {
@@ -49,9 +53,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${jetbrainsMono.variable} font-mono bg-[#0d1117] text-[#e6edf3]`}>
+      <body className={`${jetbrainsMono.variable} ${sora.variable} font-code-md bg-space-void text-on-surface`}>
         <noscript>
-          <div style={{ padding: "2rem", fontFamily: "monospace", color: "#e6edf3" }}>
+          <div style={{ padding: "2rem", fontFamily: "monospace", color: "#e4e1ed" }}>
             <h1>Developer Portfolio</h1>
             <p>Please enable JavaScript to view the interactive terminal experience.</p>
             <p>Email: contact@example.com</p>

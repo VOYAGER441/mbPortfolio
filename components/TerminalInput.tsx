@@ -43,7 +43,31 @@ export const TerminalInput: React.FC<TerminalInputProps> = ({ onCommand, inputRe
     } else if (e.key === 'Tab') {
       e.preventDefault();
       // Simple autocomplete logic
-      const commands = ['help', 'whoami', 'ls projects/', 'open', 'cat skills.json', 'tree skills/', 'cat experience.json', 'cat resume.pdf', 'ping contact', 'ls experience/', 'echo $availability', 'ssh github', 'curl -X GET /api/me', 'sudo hire-me', 'clear'];
+      const commands = [
+        'help',
+        'whoami',
+        'ls projects/',
+        'open projects',
+        'open skills',
+        'open contact',
+        'open systems',
+        'open network',
+        'open vault',
+        'systems',
+        'network',
+        'vault',
+        'cat skills.json',
+        'tree skills/',
+        'cat experience.json',
+        'cat resume.pdf',
+        'ping contact',
+        'ls experience/',
+        'echo $availability',
+        'ssh github',
+        'curl -X GET /api/me',
+        'sudo hire-me',
+        'clear'
+      ];
       const matches = commands.filter(c => c.startsWith(input));
       if (matches.length === 1) {
         setInput(matches[0] + (matches[0] === 'open' ? ' ' : ''));
@@ -56,35 +80,32 @@ export const TerminalInput: React.FC<TerminalInputProps> = ({ onCommand, inputRe
   };
 
   return (
-    <div className="flex items-center text-sm font-mono cursor-text" onClick={handleClick}>
-      <span className="text-[#3fb950] shrink-0 mr-3">visitor@portfolio:~$ </span>
-      <div className="relative flex-1 flex items-center bg-[#0d1117] border border-[#30363d] rounded-md px-3 py-2">
+    <div className="flex items-center gap-3 font-code-md text-code-md cursor-text" onClick={handleClick}>
+      <span className="text-terminal-green font-bold whitespace-nowrap">visitor@portfolio:~$</span>
+      <div className="relative flex-1 flex items-center">
         <input
           ref={ref}
           type="text"
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={handleKeyDown}
-          className="bg-transparent border-none outline-none text-[#e6edf3] w-full caret-transparent flex-1 z-10 font-mono placeholder-[#8b949e]"
+          className="bg-transparent border-none outline-none text-on-surface w-full caret-transparent flex-1 z-10 font-code-md text-code-md placeholder:text-on-surface-variant/60"
           aria-label="terminal input"
-          placeholder="type a command..."
+          placeholder="Type a command..."
           autoFocus
           autoComplete="off"
           spellCheck="false"
         />
         {/* Blinking Cursor overlay */}
         {input && (
-          <span 
-            className="absolute left-3 pointer-events-none text-transparent font-mono"
-            aria-hidden="true"
-          >
+          <span className="absolute left-0 pointer-events-none text-transparent font-code-md text-code-md" aria-hidden="true">
             {input}
-            <span className="absolute inline-block w-2 h-4 bg-[#3fb950] translate-y-[2px] animate-blink" style={{ marginLeft: '1px' }} />
+            <span className="inline-block cursor ml-1 translate-y-[2px]" />
           </span>
         )}
         {!input && (
-           <span className="absolute left-3 pointer-events-none font-mono">
-             <span className="inline-block w-2 h-4 bg-[#3fb950] translate-y-[2px] animate-blink" />
+           <span className="absolute left-0 pointer-events-none font-code-md text-code-md">
+             <span className="inline-block cursor translate-y-[2px]" />
            </span>
         )}
       </div>

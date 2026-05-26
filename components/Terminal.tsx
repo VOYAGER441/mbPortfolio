@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import TerminalBoot from './TerminalBoot';
 import TerminalOutput, { CommandHistoryItem } from './TerminalOutput';
 import TerminalInput from './TerminalInput';
@@ -12,6 +13,7 @@ export const Terminal: React.FC = () => {
   const [history, setHistory] = useState<CommandHistoryItem[]>([]);
   const containerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const router = useRouter();
 
   useEffect(() => {
     // Simulate boot time
@@ -34,11 +36,35 @@ export const Terminal: React.FC = () => {
       return;
     }
 
+    const normalized = cmd.trim().toLowerCase();
+    const routeMap: Record<string, string> = {
+      'open home': '/',
+      'open projects': '/projects',
+      'open skills': '/skills',
+      'open contact': '/contact',
+      'open systems': '/systems',
+      'open network': '/network',
+      'open vault': '/vault',
+    };
+
+    if (routeMap[normalized]) {
+      setHistory((prev) => [
+        ...prev,
+        {
+          id: Date.now().toString(),
+          command: cmd,
+          output: <div className="text-on-surface-variant">Opening {routeMap[normalized]}...</div>,
+        },
+      ]);
+      router.push(routeMap[normalized]);
+      return;
+    }
+
     let output: React.ReactNode;
     
     // Check if it's a ping command to simulate delay
     if (cmd.startsWith('ping')) {
-      output = <div className="text-[#8b949e]">Pinging...</div>;
+      output = <div className="text-on-surface-variant">Pinging...</div>;
       const tempId = Date.now().toString();
       
       setHistory((prev) => [...prev, { id: tempId, command: cmd, output }]);
@@ -59,24 +85,24 @@ export const Terminal: React.FC = () => {
   };
 
   return (
-    <div className="w-full  h-[90vh] sm:h-[80vh] flex flex-col bg-[#0d1117] rounded-xl border border-[#30363d] overflow-hidden shadow-2xl mx-auto mt-4 sm:mt-10 font-mono text-sm" onClick={focusInput}>
+    <div className="w-full h-[716px] flex flex-col terminal-window bg-space-void/80 backdrop-blur-md border border-outline/20 rounded-lg overflow-hidden font-code-md text-code-md" onClick={focusInput}>
       {/* Window Chrome */}
-      <div className="h-10 flex items-center px-4 bg-[#161b22] border-b border-[#30363d] shrink-0 gap-2">
-        <div className="flex gap-2 shrink-0">
-          <div className="w-3 h-3 rounded-full bg-[#ff5f57]"></div>
-          <div className="w-3 h-3 rounded-full bg-[#febc2e]"></div>
-          <div className="w-3 h-3 rounded-full bg-[#28c840]"></div>
+      <div className="bg-surface-container-high px-4 py-2 flex items-center justify-between border-b border-outline/20 shrink-0">
+        <div className="flex gap-2">
+          <div className="status-dot bg-error-red"></div>
+          <div className="status-dot bg-warning-amber"></div>
+          <div className="status-dot bg-terminal-green"></div>
         </div>
-        <div className="flex-1 text-center text-[#8b949e] font-mono select-none pointer-events-none">
+        <div className="font-code-sm text-code-sm text-on-surface-variant opacity-60 select-none pointer-events-none">
           voyager — portfolio ~ bash
         </div>
-        <div className="w-[52px]" /> {/* Spacer for centering */}
+        <div className="w-12" /> {/* Spacer for centering */}
       </div>
 
       {/* Terminal Content */}
       <div 
         ref={containerRef}
-        className="flex-1 overflow-y-auto p-4 sm:p-6 scrollbar-hide"
+        className="flex-1 overflow-y-auto p-6 terminal-scroll space-y-4"
       >
         <TerminalBoot />
         
@@ -89,7 +115,7 @@ export const Terminal: React.FC = () => {
 
       {/* Bottom Section (HintBar + Input) */}
       {booted && (
-        <div className="shrink-0 bg-[#161b22] border-t border-[#30363d] p-4 flex flex-col gap-4">
+        <div className="shrink-0 border-t border-outline/20 bg-surface-container-lowest/50 p-6 flex flex-col gap-4">
           <HintBar onCommandClick={(cmd) => {
             handleCommand(cmd);
             focusInput();

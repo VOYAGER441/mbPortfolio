@@ -15,7 +15,7 @@ interface TerminalOutputProps {
 
 export const TerminalOutput: React.FC<TerminalOutputProps> = ({ history }) => {
   return (
-    <div className="font-mono text-sm" aria-live="polite">
+    <div className="font-code-md text-code-md" aria-live="polite">
       {history.map((item) => (
         <motion.div
           key={item.id}
@@ -24,12 +24,12 @@ export const TerminalOutput: React.FC<TerminalOutputProps> = ({ history }) => {
           transition={{ duration: 0.2 }}
           className="mb-6"
         >
-          <div className="flex items-center text-[#3fb950] font-bold mb-2">
+          <div className="flex items-center text-terminal-green font-bold mb-2">
             <span>visitor</span>
-            <span className="text-[#e6edf3]">@portfolio:~$ </span>
-            <span className="text-[#e6edf3] ml-2 font-normal">{item.command}</span>
+            <span className="text-on-surface">@portfolio:~$ </span>
+            <span className="text-on-surface ml-2 font-normal">{item.command}</span>
           </div>
-          <div className="text-[#e6edf3] whitespace-pre-wrap">
+          <div className="text-on-surface whitespace-pre-wrap">
             {item.output}
           </div>
         </motion.div>

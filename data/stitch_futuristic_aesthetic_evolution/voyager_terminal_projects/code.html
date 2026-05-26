@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Voyager | Project Terminal</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&amp;family=Sora:wght@700;800&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-surface-variant": "#b9cacb",
+                    "on-tertiary-fixed": "#221b00",
+                    "outline": "#849495",
+                    "error-container": "#93000a",
+                    "on-secondary-fixed": "#320047",
+                    "tertiary-container": "#ffd81d",
+                    "warning-amber": "#FFD700",
+                    "primary-container": "#00f2ff",
+                    "surface-container": "#1f1f27",
+                    "on-secondary-fixed-variant": "#74009f",
+                    "space-void": "#050508",
+                    "primary-fixed": "#74f5ff",
+                    "on-tertiary": "#3a3000",
+                    "surface-container-low": "#1b1b23",
+                    "tertiary": "#fff6e4",
+                    "surface": "#13131b",
+                    "inverse-primary": "#00696f",
+                    "on-error": "#690005",
+                    "secondary-container": "#ce5dff",
+                    "inverse-on-surface": "#302f39",
+                    "error": "#ffb4ab",
+                    "tertiary-fixed-dim": "#e9c400",
+                    "nebula-blue": "#161B33",
+                    "surface-tint": "#00dbe7",
+                    "on-error-container": "#ffdad6",
+                    "tertiary-fixed": "#ffe16d",
+                    "inverse-surface": "#e4e1ed",
+                    "on-surface": "#e4e1ed",
+                    "on-primary": "#00363a",
+                    "surface-bright": "#393842",
+                    "primary-fixed-dim": "#00dbe7",
+                    "on-background": "#e4e1ed",
+                    "terminal-green": "#4AF626",
+                    "primary": "#e1fdff",
+                    "error-red": "#FF3131",
+                    "on-secondary": "#520071",
+                    "on-tertiary-fixed-variant": "#544600",
+                    "background": "#13131b",
+                    "on-primary-fixed": "#002022",
+                    "surface-container-high": "#292932",
+                    "outline-variant": "#3a494b",
+                    "secondary": "#ebb2ff",
+                    "on-secondary-container": "#480064",
+                    "secondary-fixed": "#f8d8ff",
+                    "surface-container-lowest": "#0d0d16",
+                    "on-tertiary-container": "#715e00",
+                    "on-primary-fixed-variant": "#004f54",
+                    "surface-container-highest": "#34343d",
+                    "secondary-fixed-dim": "#ebb2ff",
+                    "surface-dim": "#13131b",
+                    "on-primary-container": "#006a71",
+                    "surface-variant": "#34343d"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "unit": "4px",
+                    "gutter": "24px",
+                    "margin-mobile": "16px",
+                    "margin-desktop": "64px",
+                    "container-max": "1200px"
+            },
+            "fontFamily": {
+                    "label-caps": ["JetBrains Mono"],
+                    "headline-lg-mobile": ["Sora"],
+                    "code-sm": ["JetBrains Mono"],
+                    "code-md": ["JetBrains Mono"],
+                    "display-xl": ["Sora"],
+                    "headline-lg": ["Sora"]
+            },
+            "fontSize": {
+                    "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.15em", "fontWeight": "700"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                    "code-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "code-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "display-xl": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "0.05em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .scan-line {
+            background: linear-gradient(
+                to bottom,
+                transparent 50%,
+                rgba(0, 242, 255, 0.05) 50%
+            );
+            background-size: 100% 4px;
+            pointer-events: none;
+        }
+
+        .glass-panel {
+            background: rgba(10, 10, 18, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(132, 148, 149, 0.2);
+        }
+
+        .scanning-effect {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .scanning-effect::after {
+            content: "";
+            position: absolute;
+            top: -100%;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                to bottom,
+                transparent,
+                rgba(0, 242, 255, 0.1),
+                transparent
+            );
+            transition: top 1.5s ease-in-out;
+        }
+
+        .scanning-effect:hover::after {
+            top: 100%;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        .terminal-cursor {
+            animation: blink 1s infinite;
+        }
+
+        .corner-accent {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            border-color: rgba(0, 242, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .group:hover .corner-accent {
+            border-color: #00f2ff;
+            box-shadow: 0 0 8px #00f2ff;
+        }
+
+        .corner-tl { top: -1px; left: -1px; border-top: 2px solid; border-left: 2px solid; }
+        .corner-tr { top: -1px; right: -1px; border-top: 2px solid; border-right: 2px solid; }
+        .corner-bl { bottom: -1px; left: -1px; border-bottom: 2px solid; border-left: 2px solid; }
+        .corner-br { bottom: -1px; right: -1px; border-bottom: 2px solid; border-right: 2px solid; }
+    </style>
+</head>
+<body class="bg-space-void text-on-surface font-code-md selection:bg-primary-container selection:text-on-primary-container min-h-screen flex flex-col">
+<!-- Global Scanlines -->
+<div class="fixed inset-0 scan-line z-50 pointer-events-none"></div>
+<!-- Background Cosmic Glow -->
+<div class="fixed top-0 left-0 w-full h-full -z-10 opacity-30">
+<div class="absolute top-[-10%] right-[-10%] w-[500px] h-[500px] bg-secondary-container/20 blur-[120px] rounded-full"></div>
+<div class="absolute bottom-[-10%] left-[-10%] w-[600px] h-[600px] bg-primary-container/10 blur-[150px] rounded-full"></div>
+</div>
+<!-- Header Navigation (TopAppBar Shared Component) -->
+<header class="bg-surface/70 backdrop-blur-xl docked full-width top-0 border-b border-outline-variant/30 shadow-[0_0_15px_rgba(0,242,255,0.1)] z-40 fixed top-0 w-full">
+<div class="flex justify-between items-center w-full px-margin-desktop h-16">
+<div class="flex items-center gap-4">
+<span class="font-label-caps text-label-caps text-on-surface-variant tracking-widest">voyager ~ portfolio</span>
+<div class="hidden md:flex gap-unit">
+<div class="w-2 h-2 rounded-full bg-error-red"></div>
+<div class="w-2 h-2 rounded-full bg-warning-amber"></div>
+<div class="w-2 h-2 rounded-full bg-terminal-green"></div>
+</div>
+</div>
+<nav class="hidden md:flex items-center gap-8 h-full">
+<a class="text-on-surface-variant hover:text-primary transition-colors h-full flex items-center px-2 font-code-md text-code-md" href="#">Profile</a>
+<a class="text-primary-container border-b-2 border-primary-container font-bold h-full flex items-center px-2 font-code-md text-code-md" href="#">Projects</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors h-full flex items-center px-2 font-code-md text-code-md" href="#">Skills</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors h-full flex items-center px-2 font-code-md text-code-md" href="#">Contact</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="p-2 hover:bg-primary-container/10 hover:shadow-[0_0_10px_rgba(0,242,255,0.3)] transition-all rounded-lg active:scale-95 duration-150">
+<span class="material-symbols-outlined text-primary-container" data-icon="terminal">terminal</span>
+</button>
+<button class="p-2 hover:bg-primary-container/10 hover:shadow-[0_0_10px_rgba(0,242,255,0.3)] transition-all rounded-lg active:scale-95 duration-150">
+<span class="material-symbols-outlined text-primary-container" data-icon="settings">settings</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Side Navigation (SideNavBar Shared Component) -->
+<aside class="hidden lg:flex flex-col h-full fixed left-0 w-64 bg-space-void/80 backdrop-blur-md border-r border-outline/20 z-30 pt-16">
+<div class="p-gutter border-b border-outline/10">
+<div class="flex items-center gap-4 mb-4">
+<div class="w-10 h-10 rounded bg-primary-container/20 flex items-center justify-center border border-primary-container/40">
+<span class="material-symbols-outlined text-primary-container" data-icon="token">token</span>
+</div>
+<div>
+<h2 class="font-headline-lg text-code-md text-primary-container drop-shadow-[0_0_5px_#00f2ff]">VOYAGER-V2</h2>
+<p class="text-[10px] text-terminal-green font-code-sm uppercase tracking-tighter">Systems: Operational</p>
+</div>
+</div>
+<button class="w-full py-2 bg-primary-container/10 border border-primary-container/30 text-primary-fixed font-code-sm hover:bg-primary-container/20 transition-all uppercase tracking-widest text-[11px]">EXECUTE CMD</button>
+</div>
+<nav class="flex-1 py-4">
+<a class="text-on-surface-variant hover:text-on-surface p-4 flex items-center gap-3 hover:bg-surface-container-high transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span> Home
+            </a>
+<a class="bg-primary-container/20 text-primary-fixed border-l-4 border-primary-container shadow-[inset_0_0_10px_rgba(0,242,255,0.2)] p-4 flex items-center gap-3" href="#">
+<span class="material-symbols-outlined" data-icon="settings_input_component">settings_input_component</span> Systems
+            </a>
+<a class="text-on-surface-variant hover:text-on-surface p-4 flex items-center gap-3 hover:bg-surface-container-high transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="lan">lan</span> Network
+            </a>
+<a class="text-on-surface-variant hover:text-on-surface p-4 flex items-center gap-3 hover:bg-surface-container-high transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="lock">lock</span> Vault
+            </a>
+</nav>
+<div class="p-4 border-t border-outline/10">
+<a class="text-on-surface-variant hover:text-on-surface p-2 flex items-center gap-3 text-sm" href="#">
+<span class="material-symbols-outlined text-sm" data-icon="description">description</span> Docs
+            </a>
+<a class="text-on-surface-variant hover:text-on-surface p-2 flex items-center gap-3 text-sm" href="#">
+<span class="material-symbols-outlined text-sm" data-icon="logout">logout</span> Logout
+            </a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 lg:ml-64 pt-24 pb-32 px-margin-mobile md:px-margin-desktop">
+<div class="max-w-container-max mx-auto">
+<!-- Section Header -->
+<div class="mb-12">
+<div class="flex items-center gap-2 mb-2">
+<span class="text-terminal-green">visitor@portfolio:~$</span>
+<h1 class="font-headline-lg text-headline-lg">ls projects/</h1>
+<span class="w-2.5 h-6 bg-primary-container terminal-cursor"></span>
+</div>
+<div class="h-px w-full bg-gradient-to-r from-primary-container/50 to-transparent"></div>
+<p class="mt-4 text-on-surface-variant font-code-sm max-w-2xl opacity-80">
+                    Querying repository index... Fetching production-ready artifacts.
+                    Displaying localized neural networks and automated defense systems.
+                </p>
+</div>
+<!-- Bento Grid Showcase -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
+<!-- Project Card 1: soulsync-ai -->
+<div class="group relative glass-panel p-gutter overflow-hidden scanning-effect transition-all hover:translate-y-[-4px] hover:shadow-[0_0_30px_rgba(0,242,255,0.15)] h-[420px] flex flex-col">
+<div class="corner-accent corner-tl"></div><div class="corner-accent corner-tr"></div>
+<div class="corner-accent corner-bl"></div><div class="corner-accent corner-br"></div>
+<div class="relative w-full h-40 mb-6 overflow-hidden rounded-lg">
+<img class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity duration-500 scale-105 group-hover:scale-100" data-alt="A sophisticated neural network visualization with glowing blue nodes and crystalline structures, representing an advanced AI soul-syncing interface. The lighting is moody and cinematic with deep indigo shadows and vibrant cyan highlights, emphasizing the high-tech, futuristic theme of AI integration." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD90V2CvcWns9AXZIoz_I_qaw2XTvY2Y8PI0nQujgVdfvIfHCMvDD6_CzfUHzKfCHGVMPtqhqc_XlFXotYk1Nl3pdmZN0napHAy9GR6hYUa4LcqsP9Ig1VfqCBnErgM1K9Wjz6uTzLBg_Cgu4UbmUIY_12BcZYjtuGYIb7rkvaDxEMl9Anm_eoAY_jKcDq6EbDjFAprDprco1NiC2M6Pr-DZvMKt94aIJGfLMMJ_VPCKqrzlUghutUO_0wv9qjVW85JZGmsnDG7rA"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container to-transparent"></div>
+<div class="absolute top-2 right-2 px-2 py-1 bg-surface/80 backdrop-blur-md rounded border border-outline/20 text-[10px] text-primary-container font-label-caps uppercase">Active</div>
+</div>
+<div class="flex-1">
+<h3 class="font-headline-lg text-headline-lg-mobile text-primary mb-2">soulsync-ai</h3>
+<p class="text-on-surface-variant text-code-sm line-clamp-3 mb-6">
+                            Next-generation neural empathy engine. Real-time emotional synchronization utilizing distributed transformer models for human-digital resonance.
+                        </p>
+</div>
+<div class="space-y-4">
+<div class="flex flex-wrap gap-2">
+<span class="px-2 py-1 bg-primary-container/10 border border-primary-container/20 text-[10px] text-primary-fixed font-code-sm">PyTorch</span>
+<span class="px-2 py-1 bg-primary-container/10 border border-primary-container/20 text-[10px] text-primary-fixed font-code-sm">FastAPI</span>
+<span class="px-2 py-1 bg-primary-container/10 border border-primary-container/20 text-[10px] text-primary-fixed font-code-sm">CUDA</span>
+</div>
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-2 text-terminal-green text-[10px] font-code-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-terminal-green animate-pulse"></span>
+                                DATA_LINK: ESTABLISHED
+                            </div>
+<button class="text-primary-container hover:underline font-code-sm text-sm flex items-center gap-1 group/btn">
+                                OPEN_SRC <span class="material-symbols-outlined text-xs group-hover/btn:translate-x-1 transition-transform" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Project Card 2: sheild (Featured/Large) -->
+<div class="group relative lg:col-span-2 glass-panel p-gutter overflow-hidden scanning-effect transition-all hover:shadow-[0_0_30px_rgba(235,178,255,0.15)] h-[420px] flex flex-col md:flex-row gap-gutter">
+<div class="corner-accent corner-tl"></div><div class="corner-accent corner-tr"></div>
+<div class="corner-accent corner-bl"></div><div class="corner-accent corner-br"></div>
+<div class="relative w-full md:w-1/2 h-48 md:h-full overflow-hidden rounded-lg">
+<img class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity duration-500 scale-110 group-hover:scale-100" data-alt="A hyper-detailed cybersecurity control panel displaying real-time threat detection across a global network map. Dark matte surfaces contrast with glowing neon purple and electric blue data streams and holographic shielding grids. The atmosphere is high-stakes and professional, suggesting a robust digital defense system." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD1L_RLk02u1p7KtEVQcc-Siefs4vvhdYHVGhKxdXx-kSHkKjWS45RAF6C8pDRT4jCvoQW59a1iZiDqQm1kRoOWvceSOJ-d8ef0GX7ci9mz62z097_ANFMIhTrh27lezeIfDqR2NEf5TvREqJosHrE0eFADOd04sELgY6Iyd9uGWeWEhgJ0WHe1kaer_xxOju1rv1M4NQa2qiVBnECE2WCI1vmEDB7jF2YLUo1kUiR7fmZoDhWl2pKgidHoEy2nUX_sLezAH6NM7A"/>
+<div class="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-surface-container"></div>
+</div>
+<div class="flex-1 flex flex-col justify-between py-2">
+<div>
+<div class="flex items-center gap-3 mb-2">
+<h3 class="font-headline-lg text-headline-lg text-secondary">sheild-os</h3>
+<span class="px-2 py-0.5 bg-secondary-container/20 text-secondary border border-secondary/30 text-[9px] font-bold tracking-widest uppercase">Proprietary</span>
+</div>
+<p class="text-on-surface-variant text-code-md mb-6 leading-relaxed">
+                                Advanced cybersecurity layer featuring automated threat mitigation and zero-trust protocol enforcement. Engineered for high-latency environments with sub-millisecond packet inspection.
+                            </p>
+<div class="grid grid-cols-2 gap-4 mb-6">
+<div class="p-3 bg-surface-container-low border border-outline/10 rounded">
+<div class="text-[10px] text-on-surface-variant font-code-sm mb-1 uppercase">Latency</div>
+<div class="text-secondary font-bold font-code-md">0.42ms AVG</div>
+</div>
+<div class="p-3 bg-surface-container-low border border-outline/10 rounded">
+<div class="text-[10px] text-on-surface-variant font-code-sm mb-1 uppercase">Uptime</div>
+<div class="text-terminal-green font-bold font-code-md">99.999%</div>
+</div>
+</div>
+</div>
+<div class="space-y-4">
+<div class="flex flex-wrap gap-2">
+<span class="px-3 py-1 bg-secondary-container/10 border border-secondary-container/20 text-[11px] text-secondary font-code-md rounded-full">RUST</span>
+<span class="px-3 py-1 bg-secondary-container/10 border border-secondary-container/20 text-[11px] text-secondary font-code-md rounded-full">WEBASSEMBLY</span>
+<span class="px-3 py-1 bg-secondary-container/10 border border-secondary-container/20 text-[11px] text-secondary font-code-md rounded-full">EBPF</span>
+</div>
+<div class="flex justify-between items-center border-t border-outline/10 pt-4">
+<span class="text-[10px] text-on-surface-variant font-code-sm italic opacity-60">Build v.4.9.2-STABLE</span>
+<button class="bg-secondary-container text-on-secondary-container px-6 py-2 rounded-lg font-code-sm text-sm hover:shadow-[0_0_15px_rgba(206,93,255,0.4)] transition-all active:scale-95">VIEW_DOCS</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Project Card 3: smartdash-ai -->
+<div class="group relative glass-panel p-gutter overflow-hidden scanning-effect transition-all hover:translate-y-[-4px] hover:shadow-[0_0_30px_rgba(0,242,255,0.15)] h-[420px] flex flex-col">
+<div class="corner-accent corner-tl"></div><div class="corner-accent corner-tr"></div>
+<div class="corner-accent corner-bl"></div><div class="corner-accent corner-br"></div>
+<div class="relative w-full h-40 mb-6 overflow-hidden rounded-lg">
+<img class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity duration-500 scale-105 group-hover:scale-100" data-alt="A futuristic data visualization dashboard featuring 3D holographic bar charts, circular progress rings, and flowing geometric data streams. The visual style is crisp and clean, utilizing a primary cyan and white palette against a deep dark background, mimicking a professional mission control analytics interface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB-MsESPKMujFoD2kkbnNJnacn8CWmwHs7nyhxdSVBspZoiQ-e8OX9AF_YZyfeLtUrtK8E9FDcH0u9_uLuKZmcz8Hi6cfA55TipUAigjup7lu3xZjczv8JoTWPJm4ZlW1jJZWxLurElcnQ01yoQrSa_27Ncj4okNGFhMl9tLQ298yCJ2R1e49AGj7c1c34MQkYWRq_tXWDjM0WnripGbWtBHOFLaaQFGsbkFDCJO9bc8VOC3y6IZBqR7xuNilqfRlNeYcOZKKPeFg"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container to-transparent"></div>
+</div>
+<div class="flex-1">
+<h3 class="font-headline-lg text-headline-lg-mobile text-primary mb-2">smartdash-ai</h3>
+<p class="text-on-surface-variant text-code-sm line-clamp-3 mb-6">
+                            Intelligent analytics dashboard for distributed IoT networks. Predictive maintenance and anomaly detection with automated reporting.
+                        </p>
+</div>
+<div class="space-y-4">
+<div class="flex flex-wrap gap-2">
+<span class="px-2 py-1 bg-primary-container/10 border border-primary-container/20 text-[10px] text-primary-fixed font-code-sm">NEXT.JS</span>
+<span class="px-2 py-1 bg-primary-container/10 border border-primary-container/20 text-[10px] text-primary-fixed font-code-sm">THREE.JS</span>
+<span class="px-2 py-1 bg-primary-container/10 border border-primary-container/20 text-[10px] text-primary-fixed font-code-sm">GO</span>
+</div>
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-2 text-warning-amber text-[10px] font-code-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-warning-amber"></span>
+                                STATUS: BETA_TRIAL
+                            </div>
+<button class="text-primary-container hover:underline font-code-sm text-sm flex items-center gap-1 group/btn">
+                                LAUNCH <span class="material-symbols-outlined text-xs group-hover/btn:translate-x-1 transition-transform" data-icon="open_in_new">open_in_new</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Project Card 4: Placeholder/Add New -->
+<div class="group relative glass-panel p-gutter overflow-hidden border-dashed border-2 border-outline/20 hover:border-primary-container/50 transition-all flex flex-col items-center justify-center text-center cursor-pointer h-[420px]">
+<div class="w-16 h-16 rounded-full border-2 border-dashed border-outline/30 flex items-center justify-center mb-4 group-hover:border-primary-container group-hover:scale-110 transition-all">
+<span class="material-symbols-outlined text-4xl text-outline group-hover:text-primary-container" data-icon="add">add</span>
+</div>
+<h3 class="font-headline-lg text-headline-lg-mobile text-on-surface-variant group-hover:text-primary transition-colors">INITIALIZE NEW REPO</h3>
+<p class="text-[10px] font-code-sm text-outline mt-2 tracking-widest uppercase">System ready for deployment</p>
+</div>
+</div>
+<!-- Terminal Hint Bar (From Screenshot) -->
+<div class="mt-margin-desktop bg-surface-container-low p-margin-mobile rounded-xl border border-outline/10 shadow-lg">
+<div class="flex flex-wrap items-center gap-3 mb-6">
+<span class="text-on-surface-variant font-code-sm mr-2 opacity-50 uppercase tracking-widest text-xs">hints:</span>
+<button class="px-4 py-2 rounded bg-surface-container-highest/50 border border-outline/20 font-code-sm text-xs hover:border-primary-container transition-all hover:bg-primary-container/10 active:scale-95">whoami</button>
+<button class="px-4 py-2 rounded bg-surface-container-highest/50 border border-outline/20 font-code-sm text-xs hover:border-primary-container transition-all hover:bg-primary-container/10 active:scale-95">tree skills/</button>
+<button class="px-4 py-2 rounded bg-surface-container-highest/50 border border-outline/20 font-code-sm text-xs hover:border-primary-container transition-all hover:bg-primary-container/10 active:scale-95">ls experience/</button>
+<button class="px-4 py-2 rounded bg-surface-container-highest/50 border border-outline/20 font-code-sm text-xs hover:border-primary-container transition-all hover:bg-primary-container/10 active:scale-95">ping contact</button>
+<button class="px-4 py-2 rounded bg-surface-container-highest/50 border border-outline/20 font-code-sm text-xs hover:border-primary-container transition-all hover:bg-primary-container/10 active:scale-95">cat resume.pdf</button>
+</div>
+<div class="relative flex items-center w-full bg-space-void rounded-lg border border-outline/20 px-4 py-3 group">
+<span class="text-terminal-green font-code-sm mr-4">visitor@portfolio:~$</span>
+<input class="flex-1 bg-transparent border-none outline-none focus:ring-0 text-on-surface font-code-sm placeholder:text-on-surface-variant/30" placeholder="Type a command..." type="text"/>
+<span class="w-2.5 h-5 bg-primary-container/50 terminal-cursor absolute right-[80%] pointer-events-none hidden group-focus-within:block"></span>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer (Shared Component) -->
+<footer class="bg-surface-container-lowest/90 backdrop-blur-lg docked full-width bottom-0 border-t border-terminal-green/20 shadow-[0_-4px_20px_rgba(74,246,38,0.05)] z-40 relative">
+<div class="flex flex-col md:flex-row justify-between items-center w-full px-margin-desktop py-gutter gap-4 md:gap-0">
+<div class="flex items-center gap-2">
+<span class="font-label-caps text-label-caps text-terminal-green">visitor@portfolio:~$ system --status online</span>
+<span class="w-1.5 h-4 bg-terminal-green/50 terminal-cursor"></span>
+</div>
+<div class="flex items-center gap-8">
+<a class="text-on-surface-variant opacity-70 hover:opacity-100 hover:text-terminal-green hover:drop-shadow-[0_0_8px_rgba(74,246,38,0.5)] font-code-md text-code-md transition-all" href="#">GitHub</a>
+<a class="text-on-surface-variant opacity-70 hover:opacity-100 hover:text-terminal-green hover:drop-shadow-[0_0_8px_rgba(74,246,38,0.5)] font-code-md text-code-md transition-all" href="#">LinkedIn</a>
+<a class="text-on-surface-variant opacity-70 hover:opacity-100 hover:text-terminal-green hover:drop-shadow-[0_0_8px_rgba(74,246,38,0.5)] font-code-md text-code-md transition-all" href="#">Twitter</a>
+<a class="text-on-surface-variant opacity-70 hover:opacity-100 hover:text-terminal-green hover:drop-shadow-[0_0_8px_rgba(74,246,38,0.5)] font-code-md text-code-md transition-all" href="#">Discord</a>
+</div>
+</div>
+</footer>
+<script>
+        // Simple micro-interaction for command buttons
+        document.querySelectorAll('button').forEach(btn => {
+            btn.addEventListener('mouseenter', () => {
+                const icon = btn.querySelector('.material-symbols-outlined');
+                if(icon) icon.style.textShadow = "0 0 10px rgba(0, 242, 255, 0.8)";
+            });
+            btn.addEventListener('mouseleave', () => {
+                const icon = btn.querySelector('.material-symbols-outlined');
+                if(icon) icon.style.textShadow = "none";
+            });
+        });
+
+        // Dynamic status bar updates (simulated)
+        const sysStatus = document.querySelector('.tracking-tighter');
+        setInterval(() => {
+            const statuses = ["Operational", "Syncing", "Optimized", "Scanning"];
+            const randomStatus = statuses[Math.floor(Math.random() * statuses.length)];
+            sysStatus.textContent = `Systems: ${randomStatus}`;
+        }, 8000);
+    </script>
+</body></html>
